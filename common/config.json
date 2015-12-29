@@ -1,0 +1,21 @@
+{
+	"server":{
+		"protocol":"http",
+		"host":"localhost",
+		"port":"8080"
+	},
+	"events":{
+		"connect":"connection",
+		"disconnect":"disconnect",
+		"connectError":"connect_error",
+		"clientServer":"clientServerEvent",
+		"connected":"connectedEvent",	
+		"twitterDefaultSubject":"star wars",
+		"twitterFeedSubjectChange":"twitterFeedSubjectChange",
+		"twitterTweet":"data",
+		"twitterTweetEmission":"twitterFeedTweetEmission",
+		"twitterError":"error",
+		"twitterEnd":"end"
+	}
+	
+}
