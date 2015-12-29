@@ -1,1 +1,17 @@
-streamOutput.template.html
+<div class="tweet feed-item">
+
+	<p>
+		x: {{tweet.user.name}}
+	</p>
+
+	<p>
+		{{tweet.created_at}}
+	<p>
+
+	<p>
+		{{tweet.text}}
+	</p>
+
+</div>
+
+<div ng-transclude></div>

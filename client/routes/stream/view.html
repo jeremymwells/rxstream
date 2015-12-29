@@ -1,28 +1,16 @@
 
 <style>
-.tweet{
+.feed-item{
 	margin:1em 3em;
+}
+.tweet{
 	border:3px solid aliceblue;
 	border-radius:5px 5px 5px 5px;
 }
 </style>
 
-<stream-output></stream-output>
+<stream-output>
+	
+</stream-output>
 
-{{streamCtrl.tweetHash}}
 
-<div class="tweet" ng-repeat="tweet in streamCtrl.tweets track by $index">
-
-<p>
-{{$index + 1}}: {{tweet.user.name}}
-</p>
-
-<p>
-{{tweet.created_at}}
-<p>
-
-<p>
-{{tweet.text}}
-</p>
-
-</div>

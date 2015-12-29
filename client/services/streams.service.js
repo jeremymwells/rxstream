@@ -32,16 +32,9 @@ function service(rx, io){
 			o.complete();
 		}).share();
 
-	this.streams = ['all','input','twitter','connection'];
-
 	return this;
 }
 
 var instance;
 
-module.exports = function(rx, io) {
-	if (!instance){
-		instance = service(rx, io);
-	}
-	return instance;
-}
+module.exports = service;
