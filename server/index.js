@@ -1,13 +1,10 @@
 
-var streams = require('./streams/factory');
+var streams = require('./streams/compositeFactory');
 var tweetLife = require('./streams/lifespan')('twitter');
+var socketLife = require('./streams/lifespan')('ioRx');
+var rx = require('rxjs/Rx');
 
-streams.twitterStream.subscribe(
-	function(tweet){ 
-		tweetLife.record(tweet.id, {eol:true});
-	},
-	function(e){
-		tweetLife.record(tweet.id, {error:e});
-	}
-);
-
+streams.tweets.subscribe(function(tweet){
+	tweetLife.record(tweet.id, {eol:true});
+	console.log(socketLife.get());
+});

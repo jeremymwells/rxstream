@@ -32,9 +32,12 @@ function service(rx, io){
 			o.complete();
 		}).share();
 
+	io.on(cfg.events.streamAnnounce, function(e){
+		console.log('STREAM EXISTS! ', e);
+	});	
+
 	return this;
 }
 
-var instance;
 
 module.exports = service;

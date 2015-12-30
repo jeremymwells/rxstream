@@ -1,19 +1,17 @@
+var _ = require('lodash');
 
 
-module.exports = function($compile, streams){
+module.exports = function($state, streams){
 
 	function link(scope, element, attrs) {
-
-		var twitterSub = streams.twitter.subscribe(function(tweet){
-			scope.tweet = tweet;
-			var template = $compile('<div class="tweet"><p>x: {{tweet.user.name}}</p><p>{{tweet.created_at}}<p><p>{{tweet.text}}</p></div>')(scope);
-			console.log(tweet.id, template.html());
-			element.append(template.html());
-		});
+		// streams.twitter.subscribe(function(tweet){
+		// 	console.log(tweet);
+		// });
 	}
 
 	return {
       restrict: 'E',
+      templateUrl:'/directives/streamOutput.template.html',
       link:link
     };
 }

@@ -9,13 +9,14 @@
 		"disconnect":"disconnect",
 		"connectError":"connect_error",
 		"clientServer":"clientServerEvent",
-		"connected":"connectedEvent",	
-		"twitterDefaultSubject":"star wars",
+		"connected":"connectedEvent",
+		"streamAnnounce":"newStreamRegistered",	
 		"twitterFeedSubjectChange":"twitterFeedSubjectChange",
 		"twitterTweet":"data",
 		"twitterTweetEmission":"twitterFeedTweetEmission",
 		"twitterError":"error",
 		"twitterEnd":"end"
-	}
+	},
+	"twitterDefaultSubject":"star wars"
 	
 }
