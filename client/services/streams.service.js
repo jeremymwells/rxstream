@@ -36,6 +36,11 @@ function service(rx, io){
 		console.log('STREAM EXISTS! ', e);
 	});	
 
+	// var num = 0;
+	// setInterval(function(){
+	// 	io.emit(cfg.events.createStream, num++);
+	// }, 3000);
+
 	return this;
 }
 

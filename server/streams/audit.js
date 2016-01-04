@@ -1,5 +1,5 @@
 var _ = require('lodash'),
-	hash = hash || {};
+	streamHash = streamHash || {};
 
 var smashAndOrIncrement = function(hash, key, props){
 	hash[key] = hash[key] || {};
@@ -15,19 +15,19 @@ var smashAndOrIncrement = function(hash, key, props){
 	}
 } 
 
-var lifespanTracker = function(name){
-	hash[name] = hash[name] || {}, self = this;
+var auditor = function(name){
+	streamHash[name] = streamHash[name] || {}, self = this;
 	
 	this.record = function(key, props){
 		
-		smashAndOrIncrement(hash[name], key, props)
+		smashAndOrIncrement(streamHash[name], key, props)
 	}
 
 	this.get = function(){
-		return hash[name];
+		return streamHash[name];
 	}
 }
 
-module.exports = function(life){
-	return new lifespanTracker(life);
+module.exports = function(streamName){
+	return new auditor(streamName);
 }

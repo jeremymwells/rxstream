@@ -10,7 +10,8 @@
 		"connectError":"connect_error",
 		"clientServer":"clientServerEvent",
 		"connected":"connectedEvent",
-		"streamAnnounce":"newStreamRegistered",	
+		"streamAnnounce":"newStreamRegistered",
+		"createStream":"createStream",
 		"twitterFeedSubjectChange":"twitterFeedSubjectChange",
 		"twitterTweet":"data",
 		"twitterTweetEmission":"twitterFeedTweetEmission",
@@ -18,5 +19,4 @@
 		"twitterEnd":"end"
 	},
 	"twitterDefaultSubject":"star wars"
-	
 }

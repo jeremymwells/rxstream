@@ -1,15 +1,15 @@
-var ioRx = require('./io');
-var twitterRx = require('./twitter');
+var ioRx = require('./io'),
+	twitterRx = require('./twitter'),
+	rx = require('rxjs/Rx'),
+	cfg = require(process.cwd() + '/common/config.json'),
+	audit = require('./audit');
 
-var rx = require('rxjs/Rx');
-var cfg = require(process.cwd() + '/common/config.json');
-var life = require('./lifespan');
-var tweetLife = life(twitterRx.name);
-var socketLife = life(ioRx.name);
+var tweetLife = audit(twitterRx.name);
+var socketLife = audit(ioRx.name);
 
 var mappedIoStream = ioRx.stream.map(function(socket){
 
-	socketLife.record(socket.id, {streamAnnounceRegistered:true});	
+	socketLife.record(socket.id, {twitterStreamAnnounceRegistered:true});	
 	//emit stream existence to clients--->
 	socket.server.emit(cfg.events.streamAnnounce, twitterRx.name);
 
@@ -28,5 +28,6 @@ var tweetStream = rx.Observable.combineLatest(twitterRx.stream, mappedIoStream, 
 });
 
 module.exports = { 
-	tweets:tweetStream
+	stream:tweetStream,
+	name:'twitter tweets'
 };

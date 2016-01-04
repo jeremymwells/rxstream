@@ -2,5 +2,6 @@
 
 
 module.exports = {
-	tweets: require('./twitterIoComposite').tweets
+	tweet: require('./twitterIoComposite').stream,
+	userInput: require('./userIoComposite').stream
 };

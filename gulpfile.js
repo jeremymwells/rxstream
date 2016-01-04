@@ -3,7 +3,6 @@ var gulp = require('gulp'),
 	webserver = require('gulp-webserver'),
 	plumber = require('gulp-plumber'),
 	babel = require('gulp-babel'),
-	//watch = require('gulp-watch'),
 	concat = require('gulp-concat'),
 	browserify = require('gulp-browserify');
 	babelify = require('babelify'),
