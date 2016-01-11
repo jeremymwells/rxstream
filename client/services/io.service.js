@@ -1,11 +1,8 @@
 var clientSocket, 
 	io = require('socket.io-client'),
+	client = require('../../common/client'),
 	cfg = require('../../common/config.json');
 
 module.exports = function(){
-	if (!clientSocket){ 
-		clientSocket = io.connect(cfg.server.protocol + '://' + cfg.server.host + ':' + cfg.server.port); 
-	}
-	
-	return clientSocket;
+	return client;
 }

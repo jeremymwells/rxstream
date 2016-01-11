@@ -2,7 +2,6 @@ var io = require('socket.io')(),
 	rx = require('rxjs/Rx'),
 	cfg = require(process.cwd() + '/common/config.json'),
 	name = 'ioRx',
-	socketLife = audit(name);
 	clientsCount = 0;
 
 	io.listen(cfg.server.port);
@@ -12,7 +11,6 @@ var socketStream = rx.Observable.fromEventPattern(
 	function add (fn) {		
 		io.on(cfg.events.connect, function(socket){
 			clientsCount++;
-
 			console.log('--> CLIENT CONNECTED! Clients count: ', clientsCount);	
 			socket.server.emit(cfg.events.connected, clientsCount);
 			fn(socket);
@@ -33,7 +31,7 @@ var socketStream = rx.Observable.fromEventPattern(
 });
 
 module.exports = {
-	stream: socketStream,
+	stream: socketStream.share(),
 	name:name
 }
 

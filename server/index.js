@@ -5,5 +5,10 @@ var streams = require('./streams/compositeFactory'),
 
 var socketLife = audit('ioRx');
 
-streams.io.subscribe(function(socket){
+streams.tweet.subscribe(function(tweet){
+	//console.log(tweet);
+});
+
+streams.userInput.subscribe(function(stream){
+	//console.log(stream);
 })
