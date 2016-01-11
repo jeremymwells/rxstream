@@ -11,24 +11,29 @@ var addStream = function(stream){
 	streams[stream]++;
 };
 
+var announceStream = function(socket, stream){
+	socket.server.emit(cfg.events.streamAnnounce, stream);
+	return socket;
+}
+
 addStream(name);
 
-var announceStream = rx.Observable.combineLatest(rx.Observable.from(Object.keys(streams)), ioRx.stream, function(streamName, socket){
+var announcedStream = rx.Observable.combineLatest(rx.Observable.from(Object.keys(streams)), ioRx.stream, function(streamName, socket){
+	return announceStream(socket, streamName);
+});
 
-		//emit stream existence to clients--->
-		socket.server.emit(cfg.events.streamAnnounce, streamName);
-
-		socket.on(cfg.events.createStream, function(newStreamName){
-			addStream(newStreamName);
-			socket.server.emit(cfg.events.streamAnnounce, streams);
-		});
-
-		return streams;
+var createStream = announcedStream.map(function(socket){
+	return socket.on(cfg.events.createStream, function(newStreamName){
+		addStream(newStreamName);
+		return announceStream(socket, newStreamName);
 	});
+});
 
 
 
 module.exports = {
-	stream:announceStream,
+	stream:createStream,
 	name:name
 }
+
+

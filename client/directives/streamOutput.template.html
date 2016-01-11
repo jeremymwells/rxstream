@@ -1,18 +1,21 @@
 
 
+<div id="templates">
+	<div class="tweet feed-item" ng-if="tweet">
 
-<div class="tweet feed-item" ng-repeat="tweet in tweets">
+		<p>
+			x: {{tweet.user.name}}
+		</p>
 
-	<p>
-		x: {{tweet.user.name}}
-	</p>
+		<p>
+			{{tweet.created_at}}
+		<p>
 
-	<p>
-		{{tweet.created_at}}
-	<p>
+		<p>
+			{{tweet.text}}
+		</p>
 
-	<p>
-		{{tweet.text}}
-	</p>
-
+	</div>
 </div>
+
+<div id="accumulator"></div>

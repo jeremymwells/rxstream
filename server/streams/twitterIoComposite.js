@@ -6,6 +6,10 @@ var ioRx = require('./io'),
 
 var tweetLife = audit(twitterRx.name);
 var socketLife = audit(ioRx.name);
+var name = 'tweet feed';
+
+
+
 
 var mappedIoStream = ioRx.stream.map(function(socket){
 
@@ -29,5 +33,5 @@ var tweetStream = rx.Observable.combineLatest(twitterRx.stream, mappedIoStream, 
 
 module.exports = { 
 	stream:tweetStream,
-	name:'twitter tweets'
+	name:name
 };

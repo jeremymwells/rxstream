@@ -10,6 +10,7 @@ var tweetLife = audit(name);
 var subject = cfg.twitterDefaultSubject;
 
 
+
 var tweetStream = rx.Observable.fromEventPattern(
 	function add(fn){
 		twitter.stream('statuses/filter', { track: subject }, function(twitterFeed) {
@@ -38,3 +39,4 @@ module.exports = {
 	stream: tweetStream.share(),
 	name:name
 };
+

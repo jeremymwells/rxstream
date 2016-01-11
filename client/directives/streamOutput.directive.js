@@ -4,6 +4,7 @@ var _ = require('lodash');
 module.exports = function($state, streams){
 
 	function link(scope, element, attrs) {
+		element
 		// streams.twitter.subscribe(function(tweet){
 		// 	console.log(tweet);
 		// });
