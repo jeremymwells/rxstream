@@ -4,31 +4,36 @@ function service(rx, io){
 	console.log(io);
 	var self = this;
 	this.subscribedStreams = [];
-	this.existingStreams = {};
+	this.all = {};
 
-	this.createANumberOfStreams = io.stream.map((socket)=>{
-		return socket.on(cfg.events.streamAnnounce, (streamName)=>{
-			self.existingStreams[streamName] = streamName;
-			console.log('STREAM EXISTS! ', streamName);
-		});
-	}).mergeMap((socket)=>{
-		return rx.Observable.interval(2000);
-	}, (socket, int)=>{
-		socket.emit(cfg.events.createStream, int);
-		return int;
+
+	this.creation = io.stream.mergeMap((socket)=>{
+		return rx.Observable.create((observer)=>{
+			socket.on(cfg.events.streamAnnounce, (streamName)=>{
+				observer.next(streamName);
+			});
+		});		
+	}, (socket, streamName)=>{
+		this.all[streamName] = streamName;
+		return this.all;
+	}).share();
+
+	this.createANumberOfStreams = io.stream.mergeMap((socket)=> {
+		return rx.Observable.interval(2000).take(5);
+	}, (socket, i)=>{
+		socket.emit(cfg.events.createStream, i);
+		return i;
 	});
 
-	this.connection = io.stream.mergeMap(function(socket){
-		return rx.Observable.create(
-			function(o){
-				socket.on(cfg.events.connected, function(connected){
-					console.log('connected! ',connected);
-					o.next(connected);
-				}).on(cfg.events.connectError, function(e){
-					o.error('ERROR', e);
-				});
-				o.complete();
+	this.connection = io.stream.mergeMap((socket)=>{
+		return rx.Observable.create((o)=>{
+			socket.on(cfg.events.connected, (connected)=>{
+				console.log('connected! ',connected);
+				o.next(connected);
+			}).on(cfg.events.connectError, (e)=>{
+				o.error('ERROR', e);
 			});
+		});
 	});
 
 	this.twitter = io.stream.mergeMap(function(socket){
@@ -37,11 +42,9 @@ function service(rx, io){
 				o.next(tweet);
 			});
 			//o.error('ERROR IN CLIENT TWITTER OBSERVABLE');
-			o.complete();
+			// o.complete();
 		});
 	});
-
-	
 
 	return this;
 }

@@ -1,6 +1,11 @@
 <div>
 	
-	
+	<div>number of server connections: {{baseCtrl.clientCount}}</div>
+
+	{{baseCtrl.allStreams}}
+	<span ng-repeat="stream in baseCtrl.streams">
+		{{stream.name}}
+	</span>
 
 	<div ui-view></div>
 

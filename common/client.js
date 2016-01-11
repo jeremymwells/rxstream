@@ -15,6 +15,6 @@ var clientRx = rx.Observable.create(function(observer){
 });
 
 module.exports = {
-	stream: clientRx.share(),
+	stream: clientRx,
 	name: name
 }
