@@ -1,6 +1,6 @@
 module.exports = function($state, streams, $scope){
 	this.clientCount = 0;
-	this.allStreams = [];
+	this.allStreams = {};
 
 	streams.connection.subscribe((clientCount)=>{
 		$scope.$apply(()=>{
@@ -8,12 +8,13 @@ module.exports = function($state, streams, $scope){
 		});
 	});
 
+	console.log(streams.all);
+
 	streams.creation.subscribe((streams)=>{
-		console.log('STREAMS!', streams)
-		 $scope.$apply(()=>{
-			this.allStreams = Object.keys(streams.all);
-		 });
-	})
+		$scope.$apply(()=>{
+			this.allStreams = streams;
+		});
+	});
 
 	console.log('BASE CONTROLLER');
 };

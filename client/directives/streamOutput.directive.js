@@ -3,7 +3,7 @@ var _ = require('lodash');
 
 module.exports = function($state, streams){
 
-	streams.createANumberOfStreams.subscribe(s=>console.log('emitted create stream event for stream: ',s));
+	streams.createANumberOfStreams.subscribe((s)=>{console.log('emitted create stream event for stream: ',s)});
 
 	function link(scope, element, attrs) {
 

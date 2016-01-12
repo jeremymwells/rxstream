@@ -1,11 +1,13 @@
 <div>
 	
 	<div>number of server connections: {{baseCtrl.clientCount}}</div>
-
 	{{baseCtrl.allStreams}}
-	<span ng-repeat="stream in baseCtrl.streams">
-		{{stream.name}}
-	</span>
+	<span ng-repeat="(key,val) in baseCtrl.allStreams">
+		<label>
+	    	<input type="checkbox" ng-model="baseCtrl.subscribedStreams">
+	    	{{key}}
+	  	</label>
+	</span> 
 
 	<div ui-view></div>
 

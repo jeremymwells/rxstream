@@ -1,22 +1,22 @@
 var cfg = require('../../common/config.json');
 
 function service(rx, io){
-	console.log(io);
 	var self = this;
 	this.subscribedStreams = [];
 	this.all = {};
 
 
 	this.creation = io.stream.mergeMap((socket)=>{
-		return rx.Observable.create((observer)=>{
+		return rx.Observable.fromEventPattern((fn) => {
 			socket.on(cfg.events.streamAnnounce, (streamName)=>{
-				observer.next(streamName);
+				this.all[streamName] = streamName;
+				fn(this.all);
 			});
-		});		
-	}, (socket, streamName)=>{
-		this.all[streamName] = streamName;
-		return this.all;
-	}).share();
+		}, (fn) => {
+			socket.off(cfg.events.streamAnnounce);
+			fn();
+		})
+	});
 
 	this.createANumberOfStreams = io.stream.mergeMap((socket)=> {
 		return rx.Observable.interval(2000).take(5);
